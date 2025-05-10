@@ -1,0 +1,80 @@
+{
+  "variants": {
+    "log_level_high": {
+      "log_level": { "integer": 1 }
+    },
+    "log_level_medium": {
+      "log_level": { "integer": 0 }
+    }
+  },
+  "expressions": {
+    "is_on_prod": { "eq": [
+      { "context": "environment" },
+      { "string": "prod" }
+    ] },
+    "is_authenticated": { "eq": [
+      { "context": "is_authenticated" },
+      { "boolean": true }
+    ] },
+    "odd_user_id": { "eq": [
+      { "mod": {
+        "left": { "context": "user_id" },
+        "right": { "integer": 2 }
+      } },
+      { "integer": 1 }
+    ] }
+  },
+  "rules": {
+    "log_level": [
+      {
+        "when": { "and": [
+          { "expr": "is_on_prod" },
+          { "expr": "is_authenticated" }
+        ] },
+        "then": { "variant": "log_level_high" }
+      },
+      {
+        "when": { "expr": "is_authenticated" },
+        "then": { "variant": "log_level_medium" }
+      },
+      {
+        "when": { "boolean": true },
+        "then": { 
+          "inline-variant": {
+            "log_level": { "integer": -1 }
+          }
+        }
+      }
+    ],
+    "show_odd_messages": [
+      {
+        "when": { "expr": "odd_user_id" },
+        "then": { "inline-variant": {
+          "show_message": { "boolean": true }
+        } }
+      }
+    ],
+    "praise_popularity": [
+      {
+        "when": { "gt": {
+          "left": { "context": "total_likes" },
+          "right": { "integer": 100 }
+        } },
+        "then": { "inline-variant": {
+          "message": { "string": "You are very popular!" }
+        } }
+      },
+      {
+        "when": { "lt": {
+          "left": { "context": "total_likes" },
+          "right": { "integer": 50 }
+        } },
+        "then": { "inline-variant": {
+          "message": { "string": "Try harder!" }
+        } }
+      }
+    ]
+  }
+}
+
+

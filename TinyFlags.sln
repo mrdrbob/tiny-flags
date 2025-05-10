@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyFlags", "src\TinyFlags\TinyFlags.csproj", "{EB4A2BF6-3E54-4461-B862-7F2F4EEB0970}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyFlags.Tests", "tests\TinyFlags.Tests\TinyFlags.Tests.csproj", "{3A018473-A4A2-4051-9B1E-33AC604B357A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB4A2BF6-3E54-4461-B862-7F2F4EEB0970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB4A2BF6-3E54-4461-B862-7F2F4EEB0970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB4A2BF6-3E54-4461-B862-7F2F4EEB0970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB4A2BF6-3E54-4461-B862-7F2F4EEB0970}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A018473-A4A2-4051-9B1E-33AC604B357A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A018473-A4A2-4051-9B1E-33AC604B357A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A018473-A4A2-4051-9B1E-33AC604B357A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A018473-A4A2-4051-9B1E-33AC604B357A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDB654A7-2BFD-49A5-947D-A6B0117B33EE}
+	EndGlobalSection
+EndGlobal
