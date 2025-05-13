@@ -139,6 +139,40 @@ Then use a combination of `Context` and `FlagsService` to make decisions based o
     var logLevel = solver.Get("log_level", "level", 2);
 ```
 
+## Security
+
+Of course, when hosting a JSON file publicly, there is nothing preventing any random person from guessing the URL and seeing the values. I strongly recommend: **do not put any sensitive data in these JSON files**.
+
+That said, if you need to secure the connection, I'd recommend overriding or replacing the `HttpFlagsetSource` class. For example, here's an implementation using a simple `X-API-Key` header:
+
+```csharp
+public class SecureFlagsetSourceSettings : HttpFlagsetSourceSettings
+{
+    public string? ApiKey { get; set; }
+}
+
+public class SecureFlagsetSource : HttpFlagsetSource
+{
+    public SecureFlagsetSource(IOptions<SecureFlagsetSourceSettings> settings, IFlagsetParser parser) 
+        : base(settings, parser)
+    {
+        if (!string.IsNullOrEmpty(settings.Value.ApiKey))
+        {
+            this.httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.Value.ApiKey);
+        }
+    }
+}
+```
+
+If you need something more robust, implement `IFlagsetSource`. There is only method:
+
+```csharp
+public interface IFlagsetSource
+{
+    Task<Flagset> LoadFlagsetAsync();
+}
+```
+
 ## Expressions
 
 TinyFlags has a rudimentary expression engine. It currently supports 3 primitive types:
@@ -147,7 +181,7 @@ TinyFlags has a rudimentary expression engine. It currently supports 3 primitive
 * Integers
 * Booleans
 
-Type mismatches between these primitives typically results in `false`. An integer is never greater than a string, for example. Summing integers and strings will ignore the strings, etc. The expression engine falls back on return false instead of throwing exceptions.
+Type mismatches between these primitives typically result in `false`. An integer is never greater than a string, for example. Summing integers and strings will ignore the strings. Concatted integers will be treated as empty strings. The expression engine falls back on `false`, `0`, or `empty` instead of throwing exceptions.
 
 The following expressions are supported:
 

@@ -8,10 +8,10 @@
     <PackageId>TinyFlags</PackageId>
     <Description>A minimalist SQL migration system and access pattern</Description>
 
-    <Version>1.0.0</Version>
-    <PackageVersion>1.0.0</PackageVersion>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.1.0</Version>
+    <PackageVersion>1.1.0</PackageVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
 
     <Authors>Bob Davidson</Authors>
 
@@ -22,6 +22,8 @@
 	<PackageProjectUrl>https://github.com/mrdrbob/tiny-flags</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/mrdrbob/tiny-flags.git</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
+
+	<PackageReleaseNotes>Added note about security. Made the `HttpFlagsetSource` class more extensible.</PackageReleaseNotes>
 	  
 	<IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

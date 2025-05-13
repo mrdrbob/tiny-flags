@@ -12,18 +12,35 @@ public class HttpFlagsetSource(
     IFlagsetParser parser
 ) : IFlagsetSource
 {
-    private readonly HttpClient _client = new HttpClient();
+    protected readonly HttpClient httpClient = new HttpClient();
 
-    public async Task<Flagset> LoadFlagsetAsync()
+    public virtual async Task<Flagset> LoadFlagsetAsync()
     {
         if (string.IsNullOrEmpty(settings.Value.Url))
             throw new InvalidOperationException("HttpFlagsetSourceSettings URL is not set.");
 
-        HttpResponseMessage response = await _client.GetAsync(settings.Value.Url);
+        HttpResponseMessage response = await httpClient.GetAsync(settings.Value.Url);
         response.EnsureSuccessStatusCode();
         var rawJson = await response.Content.ReadAsStringAsync();
         var parsedFlagset = parser.Parse(rawJson);
         return parsedFlagset;
+    }
+}
+
+public class SecureFlagsetSourceSettings : HttpFlagsetSourceSettings
+{
+    public string? ApiKey { get; set; }
+}
+
+public class SecureFlagsetSource : HttpFlagsetSource
+{
+    public SecureFlagsetSource(IOptions<SecureFlagsetSourceSettings> settings, IFlagsetParser parser) 
+        : base(settings, parser)
+    {
+        if (!string.IsNullOrEmpty(settings.Value.ApiKey))
+        {
+            this.httpClient.DefaultRequestHeaders.Add("X-API-Key", settings.Value.ApiKey);
+        }
     }
 }
 
